@@ -392,6 +392,418 @@
             пока нету
             <!-- <div class="project-item">
                 <a href="https://example.com/project1" target="_blank">
+                    <i class="fas fa-project-diagram"></i> Project 1<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>cppsharp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #121212);
+            color: #e0e0e0;
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .ash-global {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ash {
+            position: absolute;
+            bottom: 0;
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            animation-name: floatUp;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .bio-container {
+            width: 90%;
+            max-width: 1200px;
+            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+            z-index: 1;
+            animation: fadeIn 1.5s ease-in-out;
+            user-select: none;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .border-glow {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: titlePulse 1.5s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(45deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .role {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            animation: borderPulse 2s ease-in-out infinite alternate;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-tag:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .projects-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #e0e0e0;
+            font-family: 'Courier Prime', monospace;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .projects-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .projects-menu {
+            max-height: 0;
+            overflow: hidden;
+            margin-top: 20px;
+            padding: 0 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        .projects-menu.open {
+            max-height: 500px;
+            padding: 20px;
+        }
+
+        .project-item {
+            margin-bottom: 20px;
+        }
+
+        .project-item a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .project-item a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .project-item i {
+            font-size: 1.2em;
+        }
+
+        .project-description {
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #b0b0b0;
+        }
+
+        .donate-section {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .donate-link {
+            font-size: 1em;
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .donate-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .donate-link i {
+            font-size: 1.5em;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            font-size: 1em;
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes titlePulse {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes borderPulse {
+            from { border-color: rgba(255, 255, 255, 0.3); }
+            to   { border-color: transparent; }
+        }
+
+        @media (max-width: 600px) {
+            .bio-container {
+                width: 95%;
+                padding: 15px;
+            }
+            .social-links, .donate-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .social-link, .donate-link {
+                justify-content: center;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .role {
+                font-size: 1.2em;
+            }
+            .skill-tag {
+                font-size: 0.7em;
+            }
+            .projects-button {
+                font-size: 0.9em;
+            }
+            .project-item a {
+                font-size: 0.9em;
+            }
+            .project-description {
+                font-size: 0.7em;
+            }
+        }
+
+        /* Скрыть полосу прокрутки для вебкит-браузеров */
+        ::-webkit-scrollbar {
+            width: 0; /* Убираем ширину полосы прокрутки */
+            height: 0; /* Убираем высоту полосы прокрутки */
+            background: transparent; /* Делаем фон прозрачным */
+        }
+
+        /* Скрыть полосу прокрутки для Firefox */
+        html {
+            scrollbar-width: none; /* Убираем полосу прокрутки */
+        }
+
+        /* Убедимся, что контент прокручивается */
+        body {
+            overflow: auto; /* Разрешаем прокрутку */
+        }
+    </style>
+</head>
+<body>
+    <div class="ash-global"></div>
+    <div class="bio-container">
+        <div class="border-glow"></div>
+        <div class="glow-effect"></div>
+        <div class="profile-image">
+            <img src="https://tinypic.host/images/2025/02/11/image.png" alt="Profile Image">
+        </div>
+        <h1>Ivan</h1>
+        <div class="role">Aiogram 3 dev</div>
+        <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">aiogram 3</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">Django</span>
+        </div>
+        <button class="projects-button" onclick="toggleProjects()">
+            <i class="fas fa-tools"></i> Projects
+        </button>
+        <div class="projects-menu" id="projectsMenu">
+            пока нету
+            <!-- <div class="project-item">
+                <a href="https://example.com/project1" target="_blank">
                     <i class="fas fa-project-diagram"></i> Project 1
                 </a>
                 <div class="project-description">
@@ -512,6 +924,5 @@
             e.preventDefault();
         });
     </script>
-
 </body>
 </html>
