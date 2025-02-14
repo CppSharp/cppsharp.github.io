@@ -73,7 +73,7 @@
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.05);
             transform-style: preserve-3d;
-            transition: all 0.5s ease;
+            transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(10px);
@@ -81,6 +81,7 @@
             animation: fadeIn 1.5s ease-in-out;
             user-select: none;
             margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes fadeIn {
@@ -119,11 +120,12 @@
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             will-change: transform;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
         .profile-image:hover {
             transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
         }
 
         .profile-image img {
@@ -179,17 +181,26 @@
             align-items: center;
             transition: all 0.3s ease;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .skill-tag:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
         }
 
-        .projects-button {
-            display: block;
+        .projects-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin: 20px auto;
+        }
+
+        .projects-button, .nohello-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             padding: 10px 20px;
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -199,12 +210,16 @@
             cursor: pointer;
             border-radius: 10px;
             transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .projects-button:hover {
+        .projects-button:hover, .nohello-link:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
         }
 
         .projects-menu {
@@ -259,6 +274,7 @@
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 20px;
         }
 
         .donate-link {
@@ -278,11 +294,12 @@
             min-width: 150px;
             text-align: center;
             justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .donate-link:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -294,7 +311,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 40px;
+            margin-top: 20px;
             position: relative;
             z-index: 2;
             flex-wrap: wrap;
@@ -317,11 +334,12 @@
             min-width: 150px;
             text-align: center;
             justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .social-link:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -341,11 +359,11 @@
                 width: 95%;
                 padding: 10px;
             }
-            .social-links, .donate-section {
+            .social-links, .donate-section, .projects-section {
                 flex-direction: column;
                 align-items: stretch;
             }
-            .social-link, .donate-link {
+            .social-link, .donate-link, .projects-button, .nohello-link {
                 justify-content: center;
             }
             h1 {
@@ -357,7 +375,7 @@
             .skill-tag {
                 font-size: 0.6em;
             }
-            .projects-button {
+            .projects-button, .nohello-link {
                 font-size: 0.8em;
             }
             .project-item a {
@@ -368,21 +386,18 @@
             }
         }
 
-        /* Скрыть полосу прокрутки для вебкит-браузеров */
         ::-webkit-scrollbar {
-            width: 0; /* Убираем ширину полосы прокрутки */
-            height: 0; /* Убираем высоту полосы прокрутки */
-            background: transparent; /* Делаем фон прозрачным */
+            width: 0;
+            height: 0;
+            background: transparent;
         }
 
-        /* Скрыть полосу прокрутки для Firefox */
         html {
-            scrollbar-width: none; /* Убираем полосу прокрутки */
+            scrollbar-width: none;
         }
 
-        /* Убедимся, что контент прокручивается */
         body {
-            overflow: auto; /* Разрешаем прокрутку */
+            overflow: auto;
         }
     </style>
 </head>
@@ -402,37 +417,23 @@
             <span class="skill-tag">MySQL</span>
             <span class="skill-tag">Django</span>
         </div>
-        <button class="projects-button" onclick="toggleProjects()" aria-label="Toggle Projects">
-            <i class="fas fa-tools"></i> Projects
-        </button>
+        <div class="projects-section">
+            <a href="https://nohello.net" class="nohello-link" target="_blank" aria-label="NoHello">
+                <i class="fas fa-link"></i>
+                <span>NoHello.net</span>
+            </a>
+            <button class="projects-button" onclick="toggleProjects()" aria-label="Toggle Projects">
+                <i class="fas fa-tools"></i> Projects
+            </button>
+        </div>
         <div class="projects-menu" id="projectsMenu">
-            проекты есть, лень показывать
-<!--             <div class="project-item">
-                <a href="https://example.com/project1" target="_blank" aria-label="Project 1">
-                    <i class="fas fa-project-diagram"></i> Project 1
-                </a>
-                <div class="project-description">
-                    В разработке
-                </div>
-            </div>
-            <div class="project-item">
-                <a href="https://example.com/project2" target="_blank" aria-label="Project 2">
-                    <i class="fas fa-project-diagram"></i> Project 2
-                </a>
-                <div class="project-description">
-                    В разработке
-                </div>
-            </div> -->
+            пока проектов нет
         </div>
         <div class="donate-section">
             <a href="https://t.me/send?start=IV0ppYc2sSGr" class="donate-link" target="_blank" aria-label="Send">
                 <i class="fab fa-telegram"></i>
-                <span>@crybtobot<span>
+                <span>@crybtobot</span>
             </a>
-<!--             <a href="https://example.com/monobank" class="donate-link" target="_blank" aria-label="Monobank">
-                <i class="fas fa-credit-card"></i>
-                <span>Monobank(</span>
-            </a> -->
         </div>
         <div class="social-links">
             <a href="https://t.me/cppsharp" class="social-link" target="_blank" aria-label="Telegram">
@@ -529,7 +530,6 @@
             e.preventDefault();
         });
 
-        // Typing animation for the heading
         const typingText = document.getElementById('typing-text');
         const text = typingText.innerText;
         typingText.innerText = '';
@@ -547,3 +547,4 @@
     </script>
 </body>
 </html>
+
