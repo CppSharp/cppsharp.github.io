@@ -473,43 +473,62 @@
             ashGlobalContainer.appendChild(ash);
         }
 
-        const container = document.querySelector('.bio-container');
+const container = document.querySelector('.bio-container');
+const glowEffect = document.querySelector('.glow-effect');
+const borderGlow = document.querySelector('.border-glow');
 
-        container.addEventListener('mousemove', (e) => {
-            const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const glowEffect = document.querySelector('.glow-effect');
-            glowEffect.style.left = x + 'px';
-            glowEffect.style.top = y + 'px';
-            const borderGlow = document.querySelector('.border-glow');
-            borderGlow.style.borderImage = `radial-gradient(
-                circle at ${x}px ${y}px,
-                #e0e0e0 0%,
-                #ffffff 50%,
-                rgba(255, 255, 255, 0.3) 100%
-            ) 2`;
-            const rotateX = (y / rect.height - 0.5) * 10;
-            const rotateY = (x / rect.width - 0.5) * 10;
-            container.style.transform = `
-                rotateX(${-rotateX}deg)
-                rotateY(${rotateY}deg)
-                translateZ(20px)
-            `;
-        });
+let animationFrameId;
 
-        container.addEventListener('mouseleave', () => {
-            container.style.transform = 'none';
-        });
+const handleMouseMove = (e) => {
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-        document.querySelectorAll('.skill-tag').forEach(tag => {
-            tag.addEventListener('mouseover', () => {
-                tag.style.transform = 'scale(1.1) translateY(-3px)';
-            });
-            tag.addEventListener('mouseout', () => {
-                tag.style.transform = 'none';
-            });
+    glowEffect.style.left = `${x}px`;
+    glowEffect.style.top = `${y}px`;
+
+    borderGlow.style.borderImage = `radial-gradient(
+        circle at ${x}px ${y}px,
+        #e0e0e0 0%,
+        #ffffff 50%,
+        rgba(255, 255, 255, 0.3) 100%
+    ) 2`;
+
+    const rotateX = (y / rect.height - 0.5) * 10;
+    const rotateY = (x / rect.width - 0.5) * 10;
+
+    container.style.transform = `
+        rotateX(${-rotateX}deg)
+        rotateY(${rotateY}deg)
+        translateZ(20px)
+    `;
+
+    animationFrameId = requestAnimationFrame(handleMouseMove);
+    };
+    
+    container.addEventListener('mousemove', (e) => {
+        if (!animationFrameId) {
+            animationFrameId = requestAnimationFrame(() => handleMouseMove(e));
+        }
+    });
+    
+    container.addEventListener('mouseleave', () => {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+        container.style.transform = 'none';
+        container.style.transition = 'transform 0.3s ease-out';
+    });
+    
+    document.querySelectorAll('.skill-tag').forEach(tag => {
+        tag.addEventListener('mouseover', () => {
+            tag.style.transform = 'scale(1.1) translateY(-3px)';
+            tag.style.transition = 'transform 0.3s ease-out';
         });
+        tag.addEventListener('mouseout', () => {
+            tag.style.transform = 'none';
+        });
+    });
+
 
         function toggleProjects() {
             const projectsMenu = document.getElementById('projectsMenu');
