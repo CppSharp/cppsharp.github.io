@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cppsharp</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #1a1a1a, #121212);
             color: #e0e0e0;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Comfortaa', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -144,7 +144,8 @@
             background: linear-gradient(45deg, #ffffff, #e0e0e0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Fredoka One', sans-serif;
+            font-weight: 900;
         }
 
         .role {
@@ -155,6 +156,7 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
             position: relative;
             z-index: 2;
+            font-weight: 900;
         }
 
         .skill-tags {
@@ -173,7 +175,7 @@
             border-radius: 25px;
             border: 1px dashed rgba(255, 255, 255, 0.3);
             animation: borderPulse 2s ease-in-out infinite alternate;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Comfortaa', sans-serif;
             font-size: 0.8em;
             letter-spacing: 1px;
             display: inline-flex;
@@ -181,6 +183,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 900;
         }
 
         .skill-tag:hover {
@@ -214,6 +217,7 @@
             text-align: center;
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 900;
         }
 
         .donate-link:hover {
@@ -254,6 +258,7 @@
             text-align: center;
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 900;
         }
 
         .social-link:hover {
@@ -353,7 +358,6 @@
             border-color: #191919;
         }
 
-
         .donate-link.tonkeeper {
             background-color: rgb(29, 38, 51);
             border-color: rgb(29, 38, 51);
@@ -426,23 +430,24 @@
         <i class="fas fa-arrow-left back-button" onclick="toggleContainers()" aria-label="Back"></i>
         <div class="donate-section">
             <a href="https://t.me/send?start=IV0ppYc2sSGr" class="donate-link cryptobot" target="_blank" aria-label="Send">
-                <i class="fab fa-telegram"></i>
-                <span>@cryptobot</span>
+                <img src="cb.png" alt="DonationAlerts Icon" style="width: 20%; height: auto;">
+                <span><strong>@cryptobot</strong></span>
             </a>
             <!-- <a href="https://monobank.ua" class="donate-link monobank" target="_blank" aria-label="Monobank">
                 <i class="fas fa-credit-card"></i>
                 <span>Monobank</span>
             </a> -->
             <a href="https://www.donationalerts.com/r/cppsharp" class="donate-link donationalerts" target="_blank" aria-label="DonationAlerts">
-                <img src="./DA_Alert_Color.png" alt="DonationAlerts Icon" style="width: 24px; height: 24px;">
-                <span>DonationAlerts</span>
+                <img src="DA_Alert_Color.png" alt="DonationAlerts Icon" style="width: 24px; height: 24px;">
+                <span><strong>DonationAlerts</strong></span>
             </a>
             <button class="donate-link tonkeeper" onclick="copyAddress()" aria-label="Copy Address">
                 <i class="fas fa-gem"></i>
-                <span>Tonkeeper</span>
+                <span><strong>Tonkeeper</strong></span>
             </button>
         </div>
     </div>
+
     <script>
         const ashCount = 50;
         const ashGlobalContainer = document.querySelector('.ash-global');
