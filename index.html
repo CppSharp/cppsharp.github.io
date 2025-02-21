@@ -194,11 +194,11 @@
         }
 
         .donate-section {
-            margin-top: 15px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
+            gap: 10px; /* Adjust the gap as needed */
+            margin-top: 15px;
             margin-bottom: 15px;
         }
 
@@ -207,19 +207,46 @@
             color: #e0e0e0;
             text-decoration: none;
             transition: all 0.3s ease;
-            position: relative;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
             display: flex;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             border-radius: 15px;
             text-align: center;
-            justify-content: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             font-weight: 700;
+            width: 150px; /* Fixed width for all buttons */
+            height: 150px; /* Fixed height for all buttons */
+            overflow: hidden; /* Prevent content from overflowing */
+            white-space: nowrap; /* Prevent text from wrapping */
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
+
+        .donate-link img {
+            width: 50px; /* Adjust the width to fit within the button */
+            height: auto;
+            object-fit: contain;
+            flex-shrink: 0; /* Prevent the image from shrinking */
+        }
+
+        .donate-link span {
+            font-size: 1em; /* Ensure consistent text size */
+            margin-top: 5px; /* Add some space above the text */
+            overflow: hidden; /* Prevent text from overflowing */
+            text-overflow: ellipsis; /* Add ellipsis if text overflows */
+            flex-shrink: 0; /* Prevent the text from shrinking */
+        }
+
+        .donate-link .soon {
+                font-size: 0.8em; /* Smaller text size for "[soon]" */
+                margin-top: 5px; /* Add some space above the text */
+                color: gray; /* Gray color for "[soon]" text */
+                overflow: hidden; /* Prevent text from overflowing */
+                text-overflow: ellipsis; /* Add ellipsis if text overflows */
+                flex-shrink: 0; /* Prevent the text from shrinking */
+            }
 
         .donate-link:hover {
             transform: translateY(-5px) scale(1.05);
@@ -342,25 +369,24 @@
             overflow: auto;
         }
 
-
         .donate-link.cryptobot {
             background-color: rgb(0, 137, 216);
             border-color: rgb(0, 137, 216);
         }
 
         .donate-link.monobank {
-            background-color: rgb(52, 58, 64);
-            border-color: rgb(52, 58, 64);
+            background-color: rgb(31,32,37);
+            border-color: rgb(31,32,37);
+        }
+
+        .donate-link.tonkeeper {
+            background-color: rgb(15,22,32);
+            border-color: rgb(15,22,32);
         }
 
         .donate-link.donationalerts {
             background-color: #191919;
             border-color: #191919;
-        }
-
-        .donate-link.tonkeeper {
-            background-color: rgb(29, 38, 51);
-            border-color: rgb(29, 38, 51);
         }
 
         .donate-link {
@@ -444,25 +470,26 @@
         <i class="fas fa-arrow-left back-button" onclick="toggleContainers()" aria-label="Back"></i>
         <div class="donate-section">
             <a href="https://t.me/send?start=IV0ppYc2sSGr" class="donate-link cryptobot" target="_blank">
-                <img src="cb.png"  style="width: 40%; height: auto;">
+                <img src="cb.png" style="width: 70px; height: auto;">
                 <span><strong>@cryptobot</strong></span>
             </a>
-            <button class="donate-link tonkeeper" onclick="copyAddress()" aria-label="Copy Address">
-                <img src="tk.png"  style="width: 30%; height: auto;">
+            <a href="https://tonkeeper.com" class="donate-link tonkeeper" target="_blank">
+                <img src="tk.png" style="width: 70px; height: auto;">
                 <span><strong>Tonkeeper</strong></span>
                 <span class="soon">[soon]</span>
-            </button>
+            </a>
             <a href="https://www.donationalerts.com/r/cppsharp" class="donate-link donationalerts" target="_blank" aria-label="DonationAlerts">
-                <img src="DA_Alert_Color.png"  style="width: 20%; height: auto;">
+                <img src="DA_Alert_Color.png" style="width: 70px; height: auto;">
                 <span><strong>DonationAlerts</strong></span>
             </a>
             <a href="https://monobank.ua" class="donate-link monobank" target="_blank" aria-label="Monobank">
-                <img src="mb.png" style="width: 30%; height: auto;">
+                <img src="mb.png" style="width: 70px; height: auto;">
                 <span>Monobank</span>
                 <span class="soon">[soon]</span>
             </a>
         </div>
     </div>
+
 
     <script>
         const ashCount = 30;
@@ -500,13 +527,6 @@
                 donationContainer.style.display = 'block';
                 history.pushState({ page: 'donate' }, 'Donate', '#donate');
             }
-        }
-
-        function copyAddress() {
-            const address = 'Your Tonkeeper Address Here';
-            navigator.clipboard.writeText(address).then(() => {
-                alert('Address copied to clipboard!');
-            });
         }
 
         document.addEventListener('contextmenu', (e) => {
