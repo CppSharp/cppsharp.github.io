@@ -35,13 +35,8 @@ function toggleContainers() {
     }
 }
 
-document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-});
-
-document.addEventListener('copy', (e) => {
-    e.preventDefault();
-});
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+document.addEventListener('copy', (e) => e.preventDefault());
 
 const typingText = document.getElementById('typing-text');
 const text = typingText.innerText;
@@ -78,23 +73,23 @@ window.addEventListener('load', () => {
     }
 });
 
-function copyAddress(address) {
-    navigator.clipboard.writeText(address)
-        .then(() => {
-            const notification = document.getElementById('copy-notification');
-            notification.textContent = 'Address copied to clipboard';
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Failed to copy address: ', err);
-            const notification = document.getElementById('copy-notification');
-            notification.textContent = 'Copy failed';
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 2000);
-        });
+function copyTonkeeperAddress() {
+    const address = 'UQAXcD3PT3nz1NY2WZ6c4-tk6W4PlaWqyiGYBVQ8FDbafFha';
+    navigator.clipboard.writeText(address).then(() => {
+        const notification = document.createElement('div');
+        notification.classList.add('notification');
+        notification.textContent = 'Address copied!';
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateX(-50%) translateY(-20px)';
+        }, 10);
+
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(-50%) translateY(-20px)';
+            setTimeout(() => notification.remove(), 500);
+        }, 2000);
+    });
 }
