@@ -77,3 +77,14 @@ window.addEventListener('load', () => {
         document.querySelector('.donation-container').style.display = 'block';
     }
 });
+
+function copyAddress(address) {
+    navigator.clipboard.writeText(address)
+        .then(() => {
+            alert('Address copied to clipboard: ' + address);
+        })
+        .catch(err => {
+            console.error('Failed to copy address: ', err);
+            alert('Failed to copy address. Please copy it manually: ' + address);
+        });
+}
