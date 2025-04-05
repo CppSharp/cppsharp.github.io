@@ -1,3 +1,9 @@
+html {
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a, #121212);
+    scrollbar-width: none;
+}
+
 body {
     background: linear-gradient(135deg, #1a1a1a, #121212);
     color: #e0e0e0;
@@ -7,7 +13,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     perspective: 1000px;
@@ -267,9 +273,6 @@ h1 {
     height: 0;
     background: transparent;
 }
-
-html { scrollbar-width: none; }
-body { overflow: auto; }
 
 .donate-link.cryptobot { background-color: rgb(0, 137, 216); border-color: rgb(0, 137, 216); }
 .donate-link.monobank { background-color: rgb(31,32,37); border-color: rgb(31,32,37); }
