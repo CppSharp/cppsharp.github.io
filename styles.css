@@ -107,7 +107,7 @@ body {
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     will-change: transform;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    box.ashow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .profile-image:hover {
@@ -381,4 +381,23 @@ body {
 
 .copy-address i {
     margin-right: 5px;
+}
+
+.copy-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.copy-notification.show {
+    opacity: 1;
 }
