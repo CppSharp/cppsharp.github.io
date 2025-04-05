@@ -363,3 +363,22 @@ body {
     border-radius: 5px;
     border: none;
 }
+
+.copy-address {
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 5px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.copy-address:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.copy-address i {
+    margin-right: 5px;
+}
