@@ -81,10 +81,20 @@ window.addEventListener('load', () => {
 function copyAddress(address) {
     navigator.clipboard.writeText(address)
         .then(() => {
-            alert('Address copied to clipboard: ' + address);
+            const notification = document.getElementById('copy-notification');
+            notification.textContent = 'Address copied to clipboard';
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
         })
         .catch(err => {
             console.error('Failed to copy address: ', err);
-            alert('Failed to copy address. Please copy it manually: ' + address);
+            const notification = document.getElementById('copy-notification');
+            notification.textContent = 'Copy failed';
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
         });
 }
