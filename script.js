@@ -117,45 +117,45 @@ const dialogueLines = [
 const dialogueElement = document.getElementById('typing-dialogue');
 let i = 0;
 
-function typeLineByLine() {
-    if (i < dialogueLines.length) {
+async function typeLineByLine() {
+    while (i < dialogueLines.length) {
         const line = dialogueLines[i];
         const lineContainer = document.createElement('div');
         lineContainer.classList.add('dialogue-line');
         dialogueElement.appendChild(lineContainer);
 
+        // Появление по символам
         for (let j = 0; j < line.length; j++) {
             const charSpan = document.createElement('span');
             charSpan.textContent = line[j] === ' ' ? '\u00A0' : line[j];
             charSpan.style.opacity = '0';
             charSpan.style.transform = 'scale(0.7)';
             charSpan.style.display = 'inline-block';
-            charSpan.style.transition = 'all 2.01s cubic-bezier(0.33, 1, 0.68, 1)';
+            charSpan.style.transition = 'all 0.6s cubic-bezier(0.33, 1, 0.68, 1)';
             lineContainer.appendChild(charSpan);
 
-            setTimeout(() => {
-                charSpan.style.opacity = '1';
-                charSpan.style.transform = 'scale(1)';
-            }, j * 30);
+            await new Promise(r => setTimeout(r, 30));
+            charSpan.style.opacity = '1';
+            charSpan.style.transform = 'scale(1)';
         }
 
-        const currentLine = lineContainer;
+        // Пауза после появления всей строки
+        await new Promise(r => setTimeout(r, 1500));
 
-        setTimeout(() => {
-            [...currentLine.children].forEach((charSpan, k) => {
-                setTimeout(() => {
-                    charSpan.style.opacity = '0';
-                    charSpan.style.transform = 'scale(0.7)';
-                }, k * 20);
-            });
-            setTimeout(() => {
-                currentLine.remove();
-            }, line.length * 20 + 2010);
-        }, 2010 + 1020);
+        // Исчезновение по символам
+        const spans = [...lineContainer.children];
+        for (let k = 0; k < spans.length; k++) {
+            spans[k].style.opacity = '0';
+            spans[k].style.transform = 'scale(0.7)';
+            await new Promise(r => setTimeout(r, 20));
+        }
+
+        await new Promise(r => setTimeout(r, 500));
+        lineContainer.remove();
 
         i++;
-        setTimeout(typeLineByLine, 2010 + 1020);
     }
 }
+
 
 typeLineByLine();
