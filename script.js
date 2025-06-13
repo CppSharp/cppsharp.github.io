@@ -93,23 +93,21 @@ function copyTonkeeperAddress() {
 }
 
 const dialogueLines = [
-    "— Why did you buy that?",
-    "— I don’t know. Maybe I wanted to feel something.",
-    "— Did it help?",
-    "— Not really...",
-    "— Then why?",
-    "— I think I wanted to impress someone.",
-    "— Someone you like?",
-    "— No.",
-    "— Then who?",
-    "— People I don’t even like.",
-    "— So basically:",
-    "We buy things",
-    "we don’t need",
-    "with money",
-    "we don’t have",
-    "to impress people",
-    "we don’t like."
+  "— Why did you buy that?",
+  "— I don’t know. I guess I thought it would make me feel better.",
+  "— Did it?",
+  "— Not really.",
+  "— Then why?",
+  "— …Maybe because I wanted to impress someone.",
+  "— Someone you care about?",
+  "— No.",
+  "— Then who?",
+  "— People I don’t even like.",
+  "— So let me get this straight:",
+  "We buy things we don’t need",
+  "with money we don’t have",
+  "to impress people we don’t even like.",
+  "— …Yeah. That’s exactly what we do."
 ];
 
 const dialogueElement = document.getElementById('typing-dialogue');
