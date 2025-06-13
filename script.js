@@ -94,8 +94,6 @@ function copyTonkeeperAddress() {
     });
 }
 
-
-
 const dialogueLines = [
     "— Why did you buy that?",
     "— I don’t know. Maybe I wanted to feel something.",
@@ -121,9 +119,42 @@ let i = 0;
 
 function typeLineByLine() {
     if (i < dialogueLines.length) {
-        dialogueElement.innerHTML += dialogueLines[i] + "<br>";
+        const line = dialogueLines[i];
+        const lineContainer = document.createElement('div');
+        lineContainer.classList.add('dialogue-line');
+        dialogueElement.appendChild(lineContainer);
+
+        for (let j = 0; j < line.length; j++) {
+            const charSpan = document.createElement('span');
+            charSpan.textContent = line[j] === ' ' ? '\u00A0' : line[j];
+            charSpan.style.opacity = '0';
+            charSpan.style.transform = 'scale(0.7)';
+            charSpan.style.display = 'inline-block';
+            charSpan.style.transition = 'all 2.01s cubic-bezier(0.33, 1, 0.68, 1)';
+            lineContainer.appendChild(charSpan);
+
+            setTimeout(() => {
+                charSpan.style.opacity = '1';
+                charSpan.style.transform = 'scale(1)';
+            }, j * 30);
+        }
+
+        const currentLine = lineContainer;
+
+        setTimeout(() => {
+            [...currentLine.children].forEach((charSpan, k) => {
+                setTimeout(() => {
+                    charSpan.style.opacity = '0';
+                    charSpan.style.transform = 'scale(0.7)';
+                }, k * 20);
+            });
+            setTimeout(() => {
+                currentLine.remove();
+            }, line.length * 20 + 2010);
+        }, 2010 + 1020);
+
         i++;
-        setTimeout(typeLineByLine, 2010);
+        setTimeout(typeLineByLine, 2010 + 1020);
     }
 }
 
