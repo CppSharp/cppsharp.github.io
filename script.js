@@ -122,6 +122,7 @@ async function typeLineByLine() {
         lineContainer.classList.add('dialogue-line');
         dialogueElement.appendChild(lineContainer);
 
+        // Появление текста с анимацией
         for (let j = 0; j < line.length; j++) {
             const charSpan = document.createElement('span');
             charSpan.textContent = line[j] === ' ' ? '\u00A0' : line[j];
@@ -138,20 +139,36 @@ async function typeLineByLine() {
 
         await new Promise(r => setTimeout(r, 1500));
 
+        // Удаление текста с сохранением одного прозрачного символа
         const spans = [...lineContainer.children];
         for (let k = 0; k < spans.length; k++) {
+            // Устанавливаем прозрачность и уменьшение размера
             spans[k].style.opacity = '0';
             spans[k].style.transform = 'scale(0.7)';
             await new Promise(r => setTimeout(r, 20));
         }
 
+        // Вместо полного удаления оставляем один прозрачный span с пробелом
+        // Чтобы блок не менял размер
+        lineContainer.textContent = '';
+        const emptySpan = document.createElement('span');
+        emptySpan.textContent = '\u00A0'; // Неразрывный пробел
+        emptySpan.style.opacity = '0';
+        emptySpan.style.display = 'inline-block';
+        emptySpan.style.width = '0.6em';  // Можно подстроить под нужный размер
+        emptySpan.style.height = '1em';
+        lineContainer.appendChild(emptySpan);
+
         await new Promise(r => setTimeout(r, 500));
-        lineContainer.remove();
+
+        // Теперь удаляем этот пустой span перед следующим текстом
+        lineContainer.removeChild(emptySpan);
 
         i++;
     }
 
     type();
 }
+
 
 typeLineByLine();
