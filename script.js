@@ -93,3 +93,38 @@ function copyTonkeeperAddress() {
         }, 2000);
     });
 }
+
+
+
+const dialogueLines = [
+    "— Why did you buy that?",
+    "— I don’t know. Maybe I wanted to feel something.",
+    "— Did it help?",
+    "— Not really...",
+    "— Then why?",
+    "— I think I wanted to impress someone.",
+    "— Someone you like?",
+    "— No.",
+    "— Then who?",
+    "— People I don’t even like.",
+    "— So basically:",
+    "We buy things",
+    "we don’t need",
+    "with money",
+    "we don’t have",
+    "to impress people",
+    "we don’t like."
+];
+
+const dialogueElement = document.getElementById('typing-dialogue');
+let i = 0;
+
+function typeLineByLine() {
+    if (i < dialogueLines.length) {
+        dialogueElement.innerHTML += dialogueLines[i] + "<br>";
+        i++;
+        setTimeout(typeLineByLine, 2010);
+    }
+}
+
+typeLineByLine();
