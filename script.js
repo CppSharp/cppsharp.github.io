@@ -24,7 +24,7 @@ function toggleContainers() {
     const bioContainer = document.querySelector('.bio-container');
     const donationContainer = document.querySelector('.donation-container');
 
-    if (bioContainer.style.display === 'none' || getComputedStyle(bioContainer).display === 'none') {
+    if (bioContainer.style.display === 'none') {
         bioContainer.style.display = 'block';
         donationContainer.style.display = 'none';
         history.pushState({ page: 'bio' }, 'Bio', '#bio');
@@ -35,49 +35,42 @@ function toggleContainers() {
     }
 }
 
-// Запрет контекстного меню и копирования
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+document.addEventListener('copy', (e) => e.preventDefault());
 
-// Текст для эффекта печатания
 const typingText = document.getElementById('typing-text');
-const text = typingText ? typingText.innerText : '';
-if (typingText) typingText.innerText = '';
+const text = typingText.innerText;
+typingText.innerText = '';
 
 let index = 0;
 function type() {
-    if (index < text.length && typingText) {
+    if (index < text.length) {
         typingText.innerText += text.charAt(index);
         index++;
         setTimeout(type, 150);
     }
 }
 
-// Обработка навигации по истории и хешу
-function updateViewByHash() {
-    const bioContainer = document.querySelector('.bio-container');
-    const donationContainer = document.querySelector('.donation-container');
-
+window.addEventListener('popstate', (event) => {
     if (location.hash === '#bio') {
-        bioContainer.style.display = 'block';
-        donationContainer.style.display = 'none';
+        document.querySelector('.bio-container').style.display = 'block';
+        document.querySelector('.donation-container').style.display = 'none';
     } else if (location.hash === '#donate') {
-        bioContainer.style.display = 'none';
-        donationContainer.style.display = 'block';
-    } else {
-        // По умолчанию показываем bio
-        bioContainer.style.display = 'block';
-        donationContainer.style.display = 'none';
+        document.querySelector('.bio-container').style.display = 'none';
+        document.querySelector('.donation-container').style.display = 'block';
     }
-}
-
-window.addEventListener('popstate', updateViewByHash);
-window.addEventListener('load', () => {
-    updateViewByHash();
-    type();
 });
 
-// Функция копирования адреса Tonkeeper с уведомлением
+window.addEventListener('load', () => {
+    if (location.hash === '#bio') {
+        document.querySelector('.bio-container').style.display = 'block';
+        document.querySelector('.donation-container').style.display = 'none';
+    } else if (location.hash === '#donate') {
+        document.querySelector('.bio-container').style.display = 'none';
+        document.querySelector('.donation-container').style.display = 'block';
+    }
+});
+
 function copyTonkeeperAddress() {
     const address = 'UQAXcD3PT3nz1NY2WZ6c4-tk6W4PlaWqyiGYBVQ8FDbafFha';
     navigator.clipboard.writeText(address).then(() => {
@@ -86,21 +79,19 @@ function copyTonkeeperAddress() {
         notification.textContent = 'Address copied!';
         document.body.appendChild(notification);
 
-        // Показ уведомления
-        requestAnimationFrame(() => {
+        setTimeout(() => {
             notification.style.opacity = '1';
             notification.style.transform = 'translateX(-50%) translateY(-20px)';
-        });
+        }, 10);
 
         setTimeout(() => {
             notification.style.opacity = '0';
-            notification.style.transform = 'translateX(-50%) translateY(0)';
+            notification.style.transform = 'translateX(-50%) translateY(-20px)';
             setTimeout(() => notification.remove(), 500);
         }, 2000);
     });
 }
 
-// Диалог для поочерёдной печати с анимацией появления и исчезновения
 const dialogueLines = [
     "— Why did you buy that?",
     "— I don’t know. Maybe I wanted to feel something.",
@@ -125,15 +116,13 @@ const dialogueElement = document.getElementById('typing-dialogue');
 let i = 0;
 
 async function typeLineByLine() {
-    if (!dialogueElement) return;
-
     while (i < dialogueLines.length) {
         const line = dialogueLines[i];
         const lineContainer = document.createElement('div');
         lineContainer.classList.add('dialogue-line');
         dialogueElement.appendChild(lineContainer);
 
-        // Появление текста посимвольно с анимацией
+        // Появление текста с анимацией
         for (let j = 0; j < line.length; j++) {
             const charSpan = document.createElement('span');
             charSpan.textContent = line[j] === ' ' ? '\u00A0' : line[j];
@@ -150,30 +139,36 @@ async function typeLineByLine() {
 
         await new Promise(r => setTimeout(r, 1500));
 
-        // Анимация исчезновения символов
+        // Удаление текста с сохранением одного прозрачного символа
         const spans = [...lineContainer.children];
         for (let k = 0; k < spans.length; k++) {
+            // Устанавливаем прозрачность и уменьшение размера
             spans[k].style.opacity = '0';
             spans[k].style.transform = 'scale(0.7)';
             await new Promise(r => setTimeout(r, 20));
         }
 
-        // Оставляем один прозрачный span, чтобы блок не менял размер
+        // Вместо полного удаления оставляем один прозрачный span с пробелом
+        // Чтобы блок не менял размер
         lineContainer.textContent = '';
         const emptySpan = document.createElement('span');
-        emptySpan.textContent = '\u00A0';
+        emptySpan.textContent = '\u00A0'; // Неразрывный пробел
         emptySpan.style.opacity = '0';
         emptySpan.style.display = 'inline-block';
-        emptySpan.style.width = '0.6em';
+        emptySpan.style.width = '0.6em';  // Можно подстроить под нужный размер
         emptySpan.style.height = '1em';
         lineContainer.appendChild(emptySpan);
 
         await new Promise(r => setTimeout(r, 500));
 
+        // Теперь удаляем этот пустой span перед следующим текстом
         lineContainer.removeChild(emptySpan);
 
         i++;
     }
+
+    type();
 }
+
 
 typeLineByLine();
