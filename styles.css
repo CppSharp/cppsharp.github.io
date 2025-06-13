@@ -117,7 +117,7 @@ h1 {
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255);
     animation: titleGlow 2s ease-in-out infinite;
     position: relative;
     z-index: 2;
