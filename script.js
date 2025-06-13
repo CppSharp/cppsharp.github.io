@@ -51,8 +51,6 @@ function type() {
     }
 }
 
-type();
-
 window.addEventListener('popstate', (event) => {
     if (location.hash === '#bio') {
         document.querySelector('.bio-container').style.display = 'block';
@@ -124,7 +122,6 @@ async function typeLineByLine() {
         lineContainer.classList.add('dialogue-line');
         dialogueElement.appendChild(lineContainer);
 
-        // Появление по символам
         for (let j = 0; j < line.length; j++) {
             const charSpan = document.createElement('span');
             charSpan.textContent = line[j] === ' ' ? '\u00A0' : line[j];
@@ -139,10 +136,8 @@ async function typeLineByLine() {
             charSpan.style.transform = 'scale(1)';
         }
 
-        // Пауза после появления всей строки
         await new Promise(r => setTimeout(r, 1500));
 
-        // Исчезновение по символам
         const spans = [...lineContainer.children];
         for (let k = 0; k < spans.length; k++) {
             spans[k].style.opacity = '0';
@@ -155,7 +150,8 @@ async function typeLineByLine() {
 
         i++;
     }
-}
 
+    type();
+}
 
 typeLineByLine();
